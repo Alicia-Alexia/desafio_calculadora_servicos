@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Orçamento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="card">
+        <h2>Simule seu Orçamento</h2>
+        
+        <div class="opcoes">
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="seo" name="servico" value="500">
+                <label for="seo">Otimização SEO (R$ 500,00)</label>
+            </div>
+
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="design" name="servico" value="1200">
+                <label for="design">Web Design & UI (R$ 1.200,00)</label>
+            </div>
+
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="backend" name="servico" value="2500">
+                <label for="backend">Desenvolvimento Backend (R$ 2.500,00)</label>
+            </div>
+        </div>
+
+        <div class="resultado">
+            <p>Total Estimado:</p>
+            <h3 id="valor-total">R$ 0,00</h3>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
