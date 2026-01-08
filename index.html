@@ -3,37 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Orçamento</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Simulador de Orçamento | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        #valor-total { transition: all 0.3s ease; }
+    </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex items-center justify-center p-6">
 
-    <div class="card">
-        <h2>Simule seu Orçamento</h2>
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
         
-        <div class="opcoes">
-            <div class="checkbox-wrapper">
-                <input type="checkbox" id="seo" name="servico" value="500">
-                <label for="seo">Otimização SEO (R$ 500,00)</label>
-            </div>
-
-            <div class="checkbox-wrapper">
-                <input type="checkbox" id="design" name="servico" value="1200">
-                <label for="design">Web Design & UI (R$ 1.200,00)</label>
-            </div>
-
-            <div class="checkbox-wrapper">
-                <input type="checkbox" id="backend" name="servico" value="2500">
-                <label for="backend">Desenvolvimento Backend (R$ 2.500,00)</label>
-            </div>
+        <div class="bg-slate-900 p-8 text-center">
+            <h2 class="text-2xl font-bold text-white mb-2">Simule seu Projeto</h2>
+            <p class="text-slate-400 text-sm">Selecione os serviços ideais para o seu negócio.</p>
         </div>
 
-        <div class="resultado">
-            <p>Total Estimado:</p>
-            <h3 id="valor-total">R$ 0,00</h3>
+        <div class="p-8 space-y-4">
+            
+            <label class="service-card group flex items-center justify-between p-4 border-2 border-slate-100 rounded-xl cursor-pointer hover:border-indigo-200 hover:bg-slate-50 transition-all duration-200">
+                <div class="flex items-center gap-4">
+                    <input type="checkbox" name="servico" value="500" class="w-5 h-5 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500 accent-indigo-600 transition-transform duration-200 group-active:scale-95">
+                    <div>
+                        <span class="block font-semibold text-slate-700">Otimização SEO</span>
+                        <span class="text-xs text-slate-500">Rankeamento no Google</span>
+                    </div>
+                </div>
+                <span class="text-sm font-bold text-slate-600">R$ 500</span>
+            </label>
+
+            <label class="service-card group flex items-center justify-between p-4 border-2 border-slate-100 rounded-xl cursor-pointer hover:border-indigo-200 hover:bg-slate-50 transition-all duration-200">
+                <div class="flex items-center gap-4">
+                    <input type="checkbox" name="servico" value="1200" class="w-5 h-5 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500 accent-indigo-600 transition-transform duration-200 group-active:scale-95">
+                    <div>
+                        <span class="block font-semibold text-slate-700">Web Design & UI</span>
+                        <span class="text-xs text-slate-500">Layout moderno e responsivo</span>
+                    </div>
+                </div>
+                <span class="text-sm font-bold text-slate-600">R$ 1.200</span>
+            </label>
+
+            <label class="service-card group flex items-center justify-between p-4 border-2 border-slate-100 rounded-xl cursor-pointer hover:border-indigo-200 hover:bg-slate-50 transition-all duration-200">
+                <div class="flex items-center gap-4">
+                    <input type="checkbox" name="servico" value="2500" class="w-5 h-5 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500 accent-indigo-600 transition-transform duration-200 group-active:scale-95">
+                    <div>
+                        <span class="block font-semibold text-slate-700">Backend API</span>
+                        <span class="text-xs text-slate-500">Lógica de servidor robusta</span>
+                    </div>
+                </div>
+                <span class="text-sm font-bold text-slate-600">R$ 2.500</span>
+            </label>
+
+        </div>
+
+        <div class="bg-slate-50 p-8 border-t border-slate-100">
+            <div class="flex justify-between items-end">
+                <div>
+                    <p class="text-sm font-medium text-slate-500 uppercase tracking-wide">Investimento Total</p>
+                    <p class="text-xs text-slate-400 mt-1">Pagamento único</p>
+                </div>
+                <h3 id="valor-total" class="text-3xl font-extrabold text-emerald-600 tracking-tight">R$ 0,00</h3>
+            </div>
+            
+            <button class="w-full mt-6 bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 active:scale-[0.98] transition-all shadow-lg shadow-indigo-200">
+                Contratar Serviços
+            </button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const checkboxes = document.querySelectorAll('input[name="servico"]');
+        const valorTotalElemento = document.getElementById('valor-total');
+        const serviceCards = document.querySelectorAll('.service-card');
+
+        function atualizarEstado() {
+            let total = 0;
+
+            checkboxes.forEach((checkbox, index) => {
+                const card = serviceCards[index];
+                
+                if (checkbox.checked) {
+                    total += parseFloat(checkbox.value);
+                    card.classList.add('border-indigo-600', 'bg-indigo-50');
+                    card.classList.remove('border-slate-100');
+                } else {
+                    card.classList.remove('border-indigo-600', 'bg-indigo-50');
+                    card.classList.add('border-slate-100');
+                }
+            });
+
+            valorTotalElemento.style.opacity = '0.5';
+            setTimeout(() => {
+                valorTotalElemento.innerText = formatarMoeda(total);
+                valorTotalElemento.style.opacity = '1';
+            }, 150);
+        }
+
+        function formatarMoeda(valor) {
+            return valor.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+        }
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', atualizarEstado);
+        });
+    </script>
 </body>
 </html>
